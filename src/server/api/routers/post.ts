@@ -8,7 +8,7 @@ import { createTRPCRouter, privateProcedure, publicProcedure } from "~/server/ap
 const filterUserForClient = (user: User) => {
   return {
     id: user.id,
-    username: user.firstName,
+    username: user.username,
     imageUrl: user.imageUrl
   }
 }

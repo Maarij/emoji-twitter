@@ -8,6 +8,7 @@ import { api } from "~/utils/api";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
@@ -15,9 +16,7 @@ dayjs.extend(relativeTime);
 
 const CreatePostWizard = () => {
   const { user } = useUser();
-
   const [input, setInput] = useState("");
-
   const ctx = api.useUtils();
 
   const { mutate, isLoading: isPosting } = api.post.create.useMutation({
@@ -40,8 +39,7 @@ const CreatePostWizard = () => {
   return (
     <div className="flex w-full gap-3">
       <Image src={user.imageUrl} alt="Profile image" className="w-14 h-14 rounded-full" width={56} height={56} />
-      <input
-        placeholder="Type some emojis!"
+      <input placeholder="Type some emojis!"
         className="bg-transparent grow outline-none"
         type="text"
         value={input}
@@ -78,7 +76,12 @@ const PostView = (props: PostWithUser) => {
       <Image src={author.imageUrl} alt="Profile image" className="w-14 h-14 rounded-full" width={56} height={56} />
       <div className="flex flex-col">
         <div className="flex text-slate-300 gap-1">
-          <span>{`@${author.username}`}</span><span className="font-thin">{`- ${dayjs(post.createdAt).fromNow()}`}</span>
+          <Link href={`/@${author.username}`}>
+            <span>{`@${author.username}`}</span>
+          </Link>
+          <Link href={`/post/${post.id}`}>
+            <span className="font-thin">{`- ${dayjs(post.createdAt).fromNow()}`}</span>
+          </Link>
         </div>
         <span className="text-2xl">{post.content}</span>
       </div>
