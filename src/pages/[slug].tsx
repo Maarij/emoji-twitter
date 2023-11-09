@@ -27,9 +27,7 @@ import { generateServerSideHelpers } from "~/server/helpers/ssgHelper";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const helpers = generateServerSideHelpers();
-
   const slug = context.params?.slug as string;
-
   const username = slug.replace("@", "");
 
   await helpers.profile.getUserByUsername.prefetch({ username });
