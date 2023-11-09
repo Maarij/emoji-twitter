@@ -23,9 +23,9 @@ import { db } from "~/server/db";
  */
 export const createTRPCContext = (opts: CreateNextContextOptions) => {
   const { req } = opts;
-  const session = getAuth(req);
+  const sesh = getAuth(req);
 
-  const userId = session.userId;
+  const userId = sesh.userId;
 
   return {
     db,
