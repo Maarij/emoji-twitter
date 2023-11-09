@@ -2,28 +2,28 @@ import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { api } from "~/utils/api";
 
-const ProfilePage: NextPage = () => {
-  const { data, isLoading } = api.profile.getUserByUsername.useQuery({
-    username: "maarij",
+const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
+  const { data } = api.profile.getUserByUsername.useQuery({
+    username,
   });
 
-  if (isLoading) return <div>Loading...</div>;
   if (!data) return <div>404</div>;
 
   return (
     <>
       <Head>
-        <title>Profile</title>
+        <title>{data.username}</title>
       </Head>
 
-      <main className="flex h-screen justify-center">
+      <PageLayout>
         <div>{data.username}</div>
-      </main>
+      </PageLayout>
     </>
   );
 };
 
 import { generateServerSideHelpers } from "~/server/helpers/ssgHelper";
+import { PageLayout } from "~/components/pageLayout";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const helpers = generateServerSideHelpers();
@@ -35,6 +35,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       trpcState: helpers.dehydrate(),
+      username,
     },
   };
 };
