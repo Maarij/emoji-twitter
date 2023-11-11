@@ -10,7 +10,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { PageLayout } from "~/components/pageLayout";
-import { PostView } from "~/components/postview";
+import { PostView } from "~/components/postView";
 dayjs.extend(relativeTime);
 
 const CreatePostWizard = () => {
