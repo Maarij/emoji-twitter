@@ -21,12 +21,8 @@ const addUserDataToPosts = async (posts: Post[]) => {
     })
   ).map(filterUserForClient);
 
-  console.log("Users: " + users[0]?.username)
-
   return posts.map((post) => {
     const author = users.find((user) => user.id === post.authorId);
-
-    console.log("Author: " + author?.username);
 
     if (!author?.username)
       throw new TRPCError({
@@ -57,8 +53,6 @@ export const postRouter = createTRPCRouter({
       take: 100,
       orderBy: [{ createdAt: "desc" }],
     });
-
-    console.log("Posts: " + posts[0]?.authorId)
 
     return addUserDataToPosts(posts);
   }),
