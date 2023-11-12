@@ -1,4 +1,4 @@
-import { SignInButton, useUser } from "@clerk/nextjs";
+import { SignInButton, SignOutButton, UserButton, useUser } from "@clerk/nextjs";
 import type { NextPage } from "next";
 import Image from "next/image";
 
@@ -37,13 +37,7 @@ const CreatePostWizard = () => {
 
   return (
     <div className="flex w-full gap-3">
-      <Image
-        src={user.imageUrl}
-        alt="Profile image"
-        className="h-14 w-14 rounded-full"
-        width={56}
-        height={56}
-      />
+      <UserButton afterSignOutUrl="/"/>
       <input
         placeholder="Type some emojis!"
         className="grow bg-transparent outline-none"
@@ -97,18 +91,20 @@ const Home: NextPage = () => {
   if (!userLoaded) return <div />;
 
   return (
-    <PageLayout>
-      <div>
-        {!isSignedIn && (
-          <div className="flex justify-center">
-            <SignInButton />
-          </div>
-        )}
-        {isSignedIn && <CreatePostWizard />}
-      </div>
+    <>
+      <PageLayout>
+        <div>
+          {!isSignedIn && (
+            <div className="flex justify-center">
+              <SignInButton />
+            </div>
+          )}
+          {isSignedIn && <CreatePostWizard />}
+        </div>
 
-      <Feed />
-    </PageLayout>
+        <Feed />
+      </PageLayout>
+    </>
   );
 };
 

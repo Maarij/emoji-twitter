@@ -1,5 +1,10 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
+import Image from "next/image";
+import { LoadingPage } from "~/components/loading";
+import { PageLayout } from "~/components/pageLayout";
+import { PostView } from "~/components/postView";
+import { generateServerSideHelpers } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
 
 const ProfileFeed = (props: { userId: string }) => {
@@ -54,12 +59,6 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
     </>
   );
 };
-
-import Image from "next/image";
-import { LoadingPage } from "~/components/loading";
-import { PageLayout } from "~/components/pageLayout";
-import { PostView } from "~/components/postView";
-import { generateServerSideHelpers } from "~/server/helpers/ssgHelper";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const helpers = generateServerSideHelpers();
